@@ -26,6 +26,7 @@
 		"@aws-sdk/client-sqs": "^3.817.0",
 		"axios": "^1.8.4",
 		"env-var": "^7.5.0",
+		"inquirer": "^12.6.2",
 		"module-alias": "^2.2.3",
 		"rimraf": "^6.0.1",
 		"validator": "^13.15.0"
@@ -44,7 +45,8 @@
 		"build:local": "npm run clean && tsc -p tsconfig-build.json && npm run package",
 		"provision": "bash ./localstack/init-resources.sh",
 		"dev:local": "npm run build:local && npm run provision && node -r ts-node/register --env-file=.env.localstack src/main/index.ts",
-		"check:local": "ts-node scripts/check-resources.ts"
+		"check:local": "ts-node scripts/check-resources.ts",
+		"manage:resources": "ts-node scripts/manage-resources.ts"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",

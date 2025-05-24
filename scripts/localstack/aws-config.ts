@@ -10,11 +10,9 @@ const credentials = {
   secretAccessKey: 'test'
 }
 
-// Região e endpoint do LocalStack
 const region = 'us-east-1'
 const endpoint = 'http://localhost:4566'
 
-// Nome fixo da Lambda
 export const LAMBDA_NAME = 'skeleton-local-stack'
 export const BUCKET_NAME = 'meu-unico-bucket-s3'
 
