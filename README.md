@@ -144,23 +144,27 @@ O projeto está organizado em camadas seguindo os princípios da Clean Architect
 ### 📁 Estrutura de Diretórios
 ```
 src/
-├── domain/             # Camada de Domínio
-│   ├── entities/       # Entidades de negócio
-│   ├── models/         # Modelos de dados
-│   ├── enums/          # Enumeradores
-│   ├── mocks/          # Dados mockados
-│   └── usecases/       # Casos de uso
-├── application/        # Camada de Aplicação
-│   ├── contracts/      # Contratos e interfaces
-│   ├── services/       # Serviços de aplicação
-│   ├── duties/         # Responsabilidades
-│   └── encapsulation/  # Encapsulamento
-├── infra/              # Camada de Infraestrutura
-│   ├── adapters/       # Adaptadores
-│   ├── containers/     # Containers de DI
-│   ├── database/       # Configurações de banco
-│   ├── gateway/        # Gateways externos
-│   └── validators/     # Validadores
+│  ├── domain/             # Camada de Domínio
+│  │   ├── entities/       # Entidades de negócio
+│  │   ├── models/         # Modelos de dados
+│  │   ├── enums/          # Enumeradores
+│  │   ├── mocks/          # Dados mockados
+  │   └── usecases/       # Casos de uso
+  ├── application/        # Camada de Aplicação
+  │   ├── contracts/      # Contratos e interfaces
+  │   ├── services/       # Serviços de aplicação
+  │   ├── duties/         # Responsabilidades
+  │   └── encapsulation/  # Encapsulamento
+  ├── infra/              # Camada de Infraestrutura
+  │   ├── adapters/       # Adaptadores
+  │   ├── containers/     # Containers de DI
+  │   ├── database/       # Configurações de banco
+  │   ├── gateway/        # Gateways externos
+  │   └── validators/     # Validadores
+  ├── presentation/       # Camada de Apresentação
+  │   ├── controllers/    # Controladores
+  │   ├── helpers/        # Auxiliares
+  │   └── interfaces/     # Interfaces de usuário
 ├── presentation/       # Camada de Apresentação
 │   ├── controllers/    # Controladores
 │   ├── helpers/        # Auxiliares
