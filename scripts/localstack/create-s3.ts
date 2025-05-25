@@ -48,6 +48,9 @@ export async function createBucket() {
     }
   }
 
+  // ⚠️ ARN do Lambda para LocalStack (conta padrão 000000000000)
+  const lambdaArn = `arn:aws:lambda:us-east-1:000000000000:function:${LAMBDA_NAME}`
+
   try {
     await s3.send(
       new PutBucketNotificationConfigurationCommand({
@@ -55,7 +58,7 @@ export async function createBucket() {
         NotificationConfiguration: {
           LambdaFunctionConfigurations: [
             {
-              LambdaFunctionArn: `arn:aws:lambda:us-east-1:000000000000:function:${LAMBDA_NAME}`,
+              LambdaFunctionArn: lambdaArn,
               Events: ['s3:ObjectCreated:*']
             }
           ]
@@ -67,3 +70,6 @@ export async function createBucket() {
     console.error('❌ Erro ao configurar evento no S3:', err)
   }
 }
+
+// Chama a função para garantir a execução
+createBucket()

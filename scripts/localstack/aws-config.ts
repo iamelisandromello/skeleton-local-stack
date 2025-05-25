@@ -15,11 +15,17 @@ const endpoint = 'http://localhost:4566'
 
 export const LAMBDA_NAME = 'skeleton-local-stack'
 export const BUCKET_NAME = 'meu-unico-bucket-s3'
+export const SQS_QUEUE_NAME = 'skeleton-local-stack-queue'
 
 // Exporta os clients AWS SDK v3 configurados para LocalStack
 export const lambda = new LambdaClient({ region, endpoint, credentials })
 export const sqs = new SQSClient({ region, endpoint, credentials })
-export const s3 = new S3Client({ region, endpoint, credentials })
+export const s3 = new S3Client({
+  region,
+  endpoint,
+  credentials,
+  forcePathStyle: true
+})
 export const dynamodb = new DynamoDBClient({ region, endpoint, credentials })
 export const apigateway = new APIGatewayClient({
   region,

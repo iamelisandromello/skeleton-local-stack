@@ -3,12 +3,12 @@ function parseBool(env?: string, fallback = false): boolean {
 }
 
 export const servicesToCheck = {
-  s3: parseBool(process.env.CHECK_S3, true),
-  sqs: parseBool(process.env.CHECK_SQS, true),
-  lambda: parseBool(process.env.CHECK_LAMBDA, true),
-  apigateway: parseBool(process.env.CHECK_APIGATEWAY, true),
-  dynamodb: parseBool(process.env.CHECK_DYNAMODB, true),
-  cloudwatch: parseBool(process.env.CHECK_CLOUDWATCH, false),
-  sns: parseBool(process.env.CHECK_SNS, false),
-  kinesis: parseBool(process.env.CHECK_KINESIS, false)
+  s3: parseBool(process.env.CHECK_LOCALSTACK_S3, true),
+  sqs: parseBool(process.env.CHECK_LOCALSTACK_SQS, true),
+  lambda: parseBool(process.env.CHECK_LOCALSTACK_LAMBDA, true),
+  apigateway: parseBool(process.env.CHECK_LOCALSTACK_APIGATEWAY, true),
+  dynamodb: parseBool(process.env.CHECK_LOCALSTACK_DYNAMODB, true),
+  cloudwatch: parseBool(process.env.CHECK_LOCALSTACK_CLOUDWATCH, false),
+  sns: parseBool(process.env.CHECK_LOCALSTACK_SNS, false),
+  kinesis: parseBool(process.env.CHECK_LOCALSTACK_KINESIS, false)
 }

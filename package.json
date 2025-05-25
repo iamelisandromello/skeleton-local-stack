@@ -40,12 +40,11 @@
 		"lint": "npx @biomejs/biome check src",
 		"lint:format": "npx @biomejs/biome check --write src",
 		"test": "jest --passWithNoTests --no-cache --runInBand",
-		"local:setup": "ts-node scripts/localstack/index.ts",
 		"package": "ts-node --files scripts/package-lambda.ts",
 		"build:local": "npm run clean && tsc -p tsconfig-build.json && npm run package",
 		"provision": "bash ./localstack/init-resources.sh",
 		"dev:local": "npm run build:local && npm run provision && node -r ts-node/register --env-file=.env.localstack src/main/index.ts",
-		"check:local": "ts-node scripts/check-resources.ts",
+		"check:local": "node --env-file=.env.localstack -r ts-node/register scripts/check-resources.ts",
 		"manage:resources": "ts-node scripts/manage-resources.ts"
 	},
 	"devDependencies": {

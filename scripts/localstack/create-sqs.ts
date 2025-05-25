@@ -1,45 +1,57 @@
-import { LAMBDA_NAME, lambda, sqs } from './aws-config'
-
+// scripts/localstack/create-sqs.ts
 import {
   CreateQueueCommand,
-  GetQueueAttributesCommand
+  GetQueueAttributesCommand,
+  ListQueuesCommand
 } from '@aws-sdk/client-sqs'
 import {
   AddPermissionCommand,
   CreateEventSourceMappingCommand
 } from '@aws-sdk/client-lambda'
 
-const lambdaName = LAMBDA_NAME
+import { SQS_QUEUE_NAME, LAMBDA_NAME, lambda, sqs } from './aws-config'
 
 export async function createQueue() {
-  const queueName = 'my-queue'
+  const queueName = SQS_QUEUE_NAME
+  const lambdaName = LAMBDA_NAME
 
   let queueUrl: string | undefined
   let queueArn: string | undefined
 
+  console.log(`🔍 Verificando se a fila "${queueName}" já existe...`)
+
   try {
-    const createQueueResp = await sqs.send(
-      new CreateQueueCommand({ QueueName: queueName })
-    )
+    const listResp = await sqs.send(new ListQueuesCommand({}))
 
-    if (!createQueueResp.QueueUrl) {
-      console.error('❌ QueueUrl não retornada pela AWS.')
-      return
-    }
+    queueUrl = listResp.QueueUrls?.find((url) => url.endsWith(`/${queueName}`))
 
-    queueUrl = createQueueResp.QueueUrl
-    console.log(`✅ Fila SQS '${queueName}' criada.`)
-  } catch (err: unknown) {
-    if (
-      typeof err === 'object' &&
-      err !== null &&
-      'name' in err &&
-      (err as { name: string }).name === 'QueueAlreadyExists'
-    ) {
+    if (queueUrl) {
       console.log(`ℹ️ Fila '${queueName}' já existe.`)
     } else {
-      console.error('❌ Erro ao criar fila SQS:', err)
+      console.log(`🛠️ Criando fila '${queueName}'...`)
+      const createResp = await sqs.send(
+        new CreateQueueCommand({ QueueName: queueName })
+      )
+
+      console.log(
+        '🔧 CreateQueueCommand response:',
+        JSON.stringify(createResp, null, 2)
+      )
+      queueUrl = createResp.QueueUrl
+
+      if (queueUrl) {
+        console.log(`✅ Fila '${queueName}' criada com URL: ${queueUrl}`)
+      } else {
+        console.error('❌ Nenhuma URL retornada na criação da fila.')
+      }
     }
+
+    if (!queueUrl) {
+      console.error('❌ QueueUrl não disponível.')
+      return
+    }
+  } catch (err) {
+    console.error('❌ Erro ao verificar/criar a fila SQS:', err)
     return
   }
 
@@ -51,7 +63,7 @@ export async function createQueue() {
       })
     )
 
-    if (!attrResp.Attributes || !attrResp.Attributes.QueueArn) {
+    if (!attrResp.Attributes?.QueueArn) {
       console.error('❌ ARN da fila não encontrado.')
       return
     }
@@ -72,7 +84,7 @@ export async function createQueue() {
         SourceArn: queueArn
       })
     )
-    console.log('✅ Permissão de invocação adicionada à Lambda para o SQS.')
+    console.log('✅ Permissão de invocação adicionada à Lambda.')
   } catch (err: unknown) {
     if (
       typeof err === 'object' &&
@@ -109,3 +121,5 @@ export async function createQueue() {
     }
   }
 }
+
+createQueue()

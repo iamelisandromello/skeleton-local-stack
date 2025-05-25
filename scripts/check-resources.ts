@@ -31,7 +31,6 @@ const localConfig = {
 
 async function checkS3() {
   try {
-    console.log('🔍 Verificando buckets S3...', process.env.LOCAL_SQS)
     const client = new S3Client(localConfig)
     const result = await client.send(new ListBucketsCommand({}))
     console.log(
@@ -157,10 +156,7 @@ function logError(service: string, err: unknown) {
 
 async function checkResources() {
   console.log('🔍 Verificando recursos no LocalStack...')
-  console.log(
-    'VERIFICAR OS SEGUINTES SERVIÇOS:',
-    process.env.LOCALSTACK_DYNAMODB
-  )
+
   if (servicesToCheck.s3) await checkS3()
   if (servicesToCheck.sqs) await checkSQS()
   if (servicesToCheck.lambda) await checkLambda()
