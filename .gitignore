@@ -7,3 +7,4 @@ yarn.lock
 .vscode/launch.json
 **/*.DS_Store
 docs/pipeline.md
+lambda.zip
