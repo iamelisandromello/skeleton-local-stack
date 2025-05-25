@@ -7,7 +7,7 @@ export const servicesToCheck = {
   sqs: parseBool(process.env.CHECK_SQS, true),
   lambda: parseBool(process.env.CHECK_LAMBDA, true),
   apigateway: parseBool(process.env.CHECK_APIGATEWAY, true),
-  dynamodb: parseBool(process.env.CHECK_DYNAMODB, false),
+  dynamodb: parseBool(process.env.CHECK_DYNAMODB, true),
   cloudwatch: parseBool(process.env.CHECK_CLOUDWATCH, false),
   sns: parseBool(process.env.CHECK_SNS, false),
   kinesis: parseBool(process.env.CHECK_KINESIS, false)

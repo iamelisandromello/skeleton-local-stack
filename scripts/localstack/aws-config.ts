@@ -26,3 +26,16 @@ export const apigateway = new APIGatewayClient({
   endpoint,
   credentials
 })
+
+export const API_NAME = 'HelloAPI'
+
+export const API_ROUTES = [
+  {
+    path: '/',
+    method: 'GET'
+  },
+  {
+    path: '/hello',
+    method: 'POST'
+  }
+]
